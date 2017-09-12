@@ -6,37 +6,9 @@
 **********************************************************************************/
 ("use strict");
 
-import { Color } from "tns-core-modules/color";
 import * as utils from "tns-core-modules/utils/utils";
 
-class SFSafariViewControllerDelegateImpl extends NSObject
-  implements SFSafariViewControllerDelegate {
-  public static ObjCProtocols = [SFSafariViewControllerDelegate];
-
-  private _owner: WeakRef<any>;
-
-  public static initWithOwner(
-    owner: WeakRef<any>
-  ): SFSafariViewControllerDelegateImpl {
-    let delegate = <SFSafariViewControllerDelegateImpl>SFSafariViewControllerDelegateImpl.new();
-    delegate._owner = owner;
-    return delegate;
-  }
-
-  safariViewControllerDidCompleteInitialLoad(
-    controller: SFSafariViewController,
-    didLoadSuccessfully: boolean
-  ): void {
-    console.log(
-      "Delegate, safariViewControllerDidCompleteInitialLoad: " +
-        didLoadSuccessfully
-    );
-  }
-
-  safariViewControllerDidFinish(controller: SFSafariViewController): void {
-    console.log("Delegate, safariViewControllerDidFinish");
-  }
-}
+import { Color } from "tns-core-modules/color";
 
 export function openAdvancedUrl(options: AdvancedWebViewOptions) {
   if (!options.url) {
@@ -54,10 +26,6 @@ export function openAdvancedUrl(options: AdvancedWebViewOptions) {
   if (options.toolbarControlsColor) {
     sfc.preferredControlTintColor = new Color(options.toolbarControlsColor).ios;
   }
-
-  sfc.delegate = SFSafariViewControllerDelegateImpl.initWithOwner(
-    new WeakRef(this)
-  );
 
   let app = utils.ios.getter(UIApplication, UIApplication.sharedApplication);
 
