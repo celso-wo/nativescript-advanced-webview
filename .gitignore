@@ -10,8 +10,8 @@ node_modules/
 platforms/ios
 
 .DS_Store
-*js
-*.js.map
+#*js
+#*.js.map
 *.tar
 *.tgz
 *.gz
